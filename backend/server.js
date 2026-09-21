@@ -30,14 +30,14 @@ const startServer = async () => {
   app.use('/api/user', userRoutes);
   app.use('/api/workouts', workoutRoutes);
 
-  app.get('/', (req, res) =>  res.send("server running"),
+  app.get('/', (req, res) => 
   res.json({ message: 'FitZone Gym API running smoothly' }));
 
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => 
   
   console.log(`Server running on port ${PORT}`));
-  res.send("server running")
+ 
 };
 
 startServer();
