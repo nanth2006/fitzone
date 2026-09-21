@@ -18,7 +18,9 @@ const startServer = async () => {
   await seedInitialData();
 
   const app = express();
-  app.use(cors());
+  app.use(cors({
+    origin:"https://fitzone-nu-two.vercel.app/"
+    }));
   app.use(express.json());
 
   app.use('/api/auth', authRoutes);
