@@ -18,9 +18,27 @@ const startServer = async () => {
   await seedInitialData();
 
   const app = express();
+  const allowedOrigins = [
+    'https://fitzone-nu-two.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ];
+
   app.use(cors({
-    origin:"https://fitzone-nu-two.vercel.app/"
-    }));
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      const cleanOrigin = origin.replace(/\/+$/, '');
+      if (
+        allowedOrigins.includes(cleanOrigin) ||
+        cleanOrigin.endsWith('.vercel.app') ||
+        /^http:\/\/localhost(:\d+)?$/.test(cleanOrigin)
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  }));
   app.use(express.json());
 
   app.use('/api/auth', authRoutes);
